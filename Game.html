@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>Game of 4 numbers</title>
+
+  <script type="text/javascript" src="src/CompareNumber.js"></script>
+  <script type="text/javascript" src="src/AnswerGenerator.js"></script>
+  <script type="text/javascript" src="src/Guess.js"></script>
+  <script type="text/javascript" src="src/Game.js"></script>
+
+</head>
+
+<body>
+  <div id="myGame">
+    <div id="typeSelector">
+      <input type="radio" name="number_of_player" value="1" onclick="Game.webStart(1)" />单人游戏
+      <br/>
+      <input type="radio" name="number_of_player" value="2" onclick="Game.webStart(2)" />双人游戏
+    </div>
+    <div id="commandInputer">
+      <input type="text" id="content_of_input"/>
+      <button onclick="my_game.webInput()">提交</button>
+    </div>
+    <div id="responseOutputer" style="font-size:8px">
+    </div>
+  </div>
+</body>
+</html>
