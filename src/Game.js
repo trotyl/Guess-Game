@@ -1,11 +1,11 @@
-function Game (guess, players) {
-	this.guess = guess;
+function Game (answerGenerator, compareNumber, players) {
+	this.compareNumber = compareNumber;
+	this.answer = answerGenerator.getNumber();
 	this.counter = 6;
 	this.opponent_counter = 6;
 	this.players = (players == 2);
 	this.turn = true;
 	this.recordSet = {};
-	this.answer = this.guess.answer;
 }
 
 Game.prototype.start = function() {
@@ -38,7 +38,7 @@ Game.prototype.input = function(guess_number) {
 
 	var doit = (!this.players && this.counter--) || (this.players && this.turn && this.counter--);
 
-	var compare = this.guess.setNumber(guess_number);
+	var compare = this.compareNumber.checkGuess(this.answer, guess_number);
 	var prefix = this.players? (this.turn? "Player2 ": "Player1 "): "";
 	var tip = prefix + "Please input your number(" + ((!this.players || !this.turn)? this.counter: this.opponent_counter).toString() + "):\n";
 	if(!this.players && this.counter == 0 || (this.players && this.turn && this.counter == 0)) {
@@ -68,7 +68,7 @@ Game.prototype.is_repeated = function(num) {
 var my_game;
 
 Game.webStart = function (players) {
-	my_game = new Game(new Guess(new AnswerGenerator(Math), new CompareNumber), players);
+	my_game = new Game(new AnswerGenerator(Math), new CompareNumber, players);
 	var display = document.getElementById("responseOutputer");
 	display.innerHTML = my_game.start().replace(/\n/g,"<br/>");
 };
