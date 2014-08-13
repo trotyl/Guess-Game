@@ -34,7 +34,7 @@ describe("GuessSpec", function() {
     var math;
 
     beforeEach(function() {
-      my_math = {
+      math = {
         register : 0,
         random : function () {
           this.register += 0.1;
@@ -45,7 +45,7 @@ describe("GuessSpec", function() {
 
     it("1234 & 1234 should be output 4A0B", function() {
       guess_num = "1234";
-      guess = new Guess(new AnswerGenerator(my_math), new CompareNumber());
+      guess = new Guess(new AnswerGenerator(math), new CompareNumber());
       expect(guess.setNumber(guess_num)).toEqual("4A0B");
     });
 
