@@ -1,26 +1,30 @@
 function CompareNumber() {
-  this.compare = {};
-  this.record = {};
-  this.total_A = 0;
-  this.total_opponent_A = 0;
+  this.reduce = 0;
 }
 
-CompareNumber.prototype.checkGuess = function(answer, guess) {
-  // something complicated
+CompareNumber.prototype.checkGuess = function(answer, guess, set) {
   var count_A = 0;
   var count_total = 0;
-  this.compare = {};
+  var set = set || {};
+  var compare_A = {};
+  var compare_total = {};
+  this.reduce = 0;
   for (var i = 3; i >= 0; i--) {
-  	var combine_ans = answer[i].concat(i);
-  	count_A += this.compare[combine_ans]? 1: 0;
- 	  this.compare[combine_ans] = true;
-  	var combine_gue = guess[i].concat(i);
-  	count_A += this.compare[combine_gue]? 1: 0;
- 	  this.compare[combine_gue] = true;
-  	count_total += this.compare[answer[i]]? 1: 0;
-  	this.compare[answer[i]] = true;
-  	count_total += this.compare[guess[i]]? 1: 0;
-  	this.compare[guess[i]] = true;
+  	count_A += compare_A[answer[i].concat(i)]? 1: 0;
+ 	  compare_A[answer[i].concat(i)] = true;
+  	count_A += compare_A[guess[i].concat(i)]? 1: 0;
+ 	  compare_A[guess[i].concat(i)] = true;
+
+    if(set[guess[i].concat(i)]) {
+      this.reduce += 1;
+      set[guess[i].concat(i)] = false; 
+    }
+
+  	count_total += compare_total[answer[i]]? 1: 0;
+  	compare_total[answer[i]] = true;
+  	count_total += compare_total[guess[i]]? 1: 0;
+  	compare_total[guess[i]] = true;
+
   };
   count_B = count_total - count_A;
   return "".concat(count_A).concat("A").concat(count_B).concat("B");

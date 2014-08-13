@@ -193,8 +193,7 @@ describe("GameSpec", function() {
         for (var i = 10; i > 0; i--) {
           game.input("5678");
         };
-        expect(game.input("5678")).toEqual("Player1 Game Over!\n\nPlayer2 Please input your number(1):\n");
-        expect(game.input("5678")).toEqual("Player2 Game Over!\n");
+        expect(game.input("5678")).toEqual("Player1 Game Over!\n");
       });
     });
 

@@ -1,10 +1,10 @@
-function AnswerGenerator(my_math) {
-  this.my_math = my_math;
+function AnswerGenerator(math) {
+  this.math = math;
 }
 
-AnswerGenerator._get_random = function (my_math, repeatSet) {
-  result = Math.floor(my_math.random() * 10);
-  return repeatSet[result]? AnswerGenerator._get_random(my_math, repeatSet): result;
+AnswerGenerator._get_random = function (math, repeatSet) {
+  result = Math.floor(math.random() * 10);
+  return repeatSet[result]? AnswerGenerator._get_random(math, repeatSet): result;
 };
 
 AnswerGenerator.prototype.getNumber = function () {
@@ -12,7 +12,7 @@ AnswerGenerator.prototype.getNumber = function () {
   var repeatSet = {};
 
   for (var i = 0; i < 4; i++) {
-  	numberSet[i] = AnswerGenerator._get_random(this.my_math, repeatSet);
+  	numberSet[i] = AnswerGenerator._get_random(this.math, repeatSet);
   	repeatSet[numberSet[i]] = true;
   };
 

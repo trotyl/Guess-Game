@@ -1,61 +1,54 @@
-function Game (answerGenerator, compareNumber, players) {
-	this.compareNumber = compareNumber;
+function Game (answerGenerator, compare, players) {
+	this.compare = compare;
 	this.answer = answerGenerator.getNumber();
-	this.counter = 6;
-	this.opponent_counter = 6;
+	this.counter_A = 6;
+	this.counter_B = 6;
 	this.players = (players == 2);
 	this.turn = true;
-	this.recordSet = {};
+	this.set_A = {};
+	this.set_B = {};
 }
 
 Game.prototype.start = function() {
 	for (var i = 3; i >= 0; i--) {
-	  	var combine_answer = this.answer[i] + i.toString();
-	 	this.recordSet[combine_answer + "1"] = 1;
-	 	this.recordSet[combine_answer + "0"] = 1;
+		this.set_A[this.answer[i].concat(i)] = true;
+		this.set_B[this.answer[i].concat(i)] = true;
 	};
-	return "Welcome!\n\n" + (this.players? "Player1 ": "") + "Please input your number(6):\n";
+	return "Welcome!\n\n" + (this.players? "Player1 ": "") + this.output(6);
 };
 
-Game.prototype.input = function(guess_number) {
+Game.prototype.input = function(guess) {
 
-	if(this.is_repeated(guess_number)) {
-		return "Cannot input duplicate numbers!\n";
+	if(this.is_repeated(guess)) { return "Cannot input duplicate numbers!\n"; }
+	var compare = this.compare.checkGuess(this.answer, guess, this.turn? this.set_A: this.set_B);
+
+	if(this.players && this.turn) {
+		this.counter_B -= this.compare.reduce;
+	}
+	else if(this.players) {
+		this.counter_A -= this.compare.reduce;
 	}
 
-	var count_A = 0;
-	for (var i = 3; i >= 0; i--) {
-	  	var combine_guess = guess_number[i] + i.toString() + (this.turn? "1": "0");
-	  	count_A += (this.recordSet[combine_guess] == 1? 1: 0);
-	 	this.recordSet[combine_guess] = 0;
-	};
-	if (this.players && this.turn) {
-		this.opponent_counter -= count_A;
-	}
-	else if(this.players && !this.turn) {
-		this.counter -= count_A;
-	}
+	(this.players && !this.turn)? this.counter_B --: this.counter_A --;
 
-	var doit = (!this.players && this.counter--) || (this.players && this.turn && this.counter--);
-
-	var compare = this.compareNumber.checkGuess(this.answer, guess_number);
 	var prefix = this.players? (this.turn? "Player2 ": "Player1 "): "";
-	var tip = prefix + "Please input your number(" + ((!this.players || !this.turn)? this.counter: this.opponent_counter).toString() + "):\n";
-	if(!this.players && this.counter == 0 || (this.players && this.turn && this.counter == 0)) {
-		result = (this.players? "Player1 ": "") + "Game Over!\n" + (this.players && this.opponent_counter > 0? "\n" + tip: "");
-		console.log(result);
+	var tip = prefix + this.output((!this.players || !this.turn)? this.counter_A: this.counter_B);
+
+	if(this.counter_A == 0 && (!this.players || this.turn)) {
+		result = (this.players? "Player1 ": "") + "Game Over!\n";
 	}
-	else if (this.players && !this.turn && this.opponent_counter-- == 1) {
-		result = "Player2 " + "Game Over!\n" + (this.opponent_counter > 0? "\n" + tip: "");
+	else if (this.counter_B == 0 && this.players && !this.turn) {
+		result = "Player2 " + "Game Over!\n";
 	}
 	else {
 		result = ((compare == "4A0B")? "Congratulations!\n": compare + "\n\n" + tip);
 	}
+
 	this.turn = !this.turn;
 	return result;
 };
 
-Game.prototype.is_repeated = function(num) {
+Game.prototype.is_repeated = function (num) {
     var result = false;
     var checkSet = {};
     for (var i = 3; i >= 0; i--) {
@@ -64,6 +57,12 @@ Game.prototype.is_repeated = function(num) {
     };
     return result;
 };
+
+Game.prototype.output = function (count) {
+	return "Please input your number(" + count.toString() + "):\n";
+};
+
+//封装到 Web 环境中
 
 var my_game;
 
