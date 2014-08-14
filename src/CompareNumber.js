@@ -8,6 +8,7 @@ CompareNumber.prototype.checkGuess = function(answer, guess, set) {
   this.reduce = 0;
   _(4).times(function (i) {
     count_A += (answer[i] == guess[i])? 1: 0;
+    //第五问用的↓
     if(set[guess[i].concat(i)]) {
       this.reduce += 1;
       set[guess[i].concat(i)] = false; 
