@@ -10,10 +10,10 @@ function Game (answerGenerator, compare, players) {
 }
 
 Game.prototype.start = function() {
-	for (var i = 3; i >= 0; i--) {
+	_(4).times(function (i) {
 		this.set_A[this.answer[i].concat(i)] = true;
 		this.set_B[this.answer[i].concat(i)] = true;
-	};
+	}, this);
 	return "Welcome!\n\n" + (this.players? "Player1 ": "") + this.output(6);
 };
 
