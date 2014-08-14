@@ -17,11 +17,9 @@ describe("GameSpec", function() {
       var game;
 
       beforeEach(function() {
-        answer_generator = {
-          getNumber: null
-        };
-        spyOn(answer_generator, "getNumber").and.returnValue("1234");
-        game = new Game(answer_generator, new CompareNumber(), 1);
+        answerGenerator = new AnswerGenerator();
+        spyOn(answerGenerator, "getNumber").and.returnValue("1234");
+        game = new Game(answerGenerator, new CompareNumber(), 1);
       });
 
       it("1234 & 4321 should be \"0A4B\"", function() {
@@ -34,11 +32,11 @@ describe("GameSpec", function() {
       var game;
 
       beforeEach(function() {
-        answer_generator = {
+        answerGenerator = {
           getNumber: null
         };
-        spyOn(answer_generator, "getNumber").and.returnValue("1234");
-        game = new Game(answer_generator, new CompareNumber(), 1);
+        spyOn(answerGenerator, "getNumber").and.returnValue("1234");
+        game = new Game(answerGenerator, new CompareNumber(), 1);
       });
 
       it("1234 & 1234 should be \"Congratulations!\"", function() {
@@ -48,11 +46,11 @@ describe("GameSpec", function() {
     });
 
     describe("GameSpec_Counter", function() {
-      answer_generator = {
+      answerGenerator = {
         getNumber: null
       };
-      spyOn(answer_generator, "getNumber").and.returnValue("1234");
-      var game = new Game(answer_generator, new CompareNumber(), 1);
+      spyOn(answerGenerator, "getNumber").and.returnValue("1234");
+      var game = new Game(answerGenerator, new CompareNumber(), 1);
 
       beforeEach(function() {
       });
@@ -69,11 +67,11 @@ describe("GameSpec", function() {
     describe("GameSpec_Over", function() {
       var game;
       beforeEach(function() {
-        answer_generator = {
+        answerGenerator = {
           getNumber: null
         };
-        spyOn(answer_generator, "getNumber").and.returnValue("1234");
-        game = new Game(answer_generator, new CompareNumber(), 1);
+        spyOn(answerGenerator, "getNumber").and.returnValue("1234");
+        game = new Game(answerGenerator, new CompareNumber(), 1);
       });
 
       it("Game should be over after 6 wrong trials", function() {
@@ -90,11 +88,11 @@ describe("GameSpec", function() {
       var game;
 
       beforeEach(function() {
-        answer_generator = {
+        answerGenerator = {
           getNumber: null
         };
-        spyOn(answer_generator, "getNumber").and.returnValue("1234");
-        game = new Game(answer_generator, new CompareNumber(), 1);
+        spyOn(answerGenerator, "getNumber").and.returnValue("1234");
+        game = new Game(answerGenerator, new CompareNumber(), 1);
       });
 
       it("input \"1111\" should be \"Cannot input duplicate numbers!\"", function() {
@@ -124,11 +122,11 @@ describe("GameSpec", function() {
       var game;
 
       beforeEach(function() {
-        answer_generator = {
+        answerGenerator = {
           getNumber: null
         };
-        spyOn(answer_generator, "getNumber").and.returnValue("1234");
-        game = new Game(answer_generator, new CompareNumber(), 2);
+        spyOn(answerGenerator, "getNumber").and.returnValue("1234");
+        game = new Game(answerGenerator, new CompareNumber(), 2);
       });
 
       it("1234 & 4321 should be \"0A4B\" on both players", function() {
@@ -142,11 +140,11 @@ describe("GameSpec", function() {
       var game;
 
       beforeEach(function() {
-        answer_generator = {
+        answerGenerator = {
           getNumber: null
         };
-        spyOn(answer_generator, "getNumber").and.returnValue("1234");
-        game = new Game(answer_generator, new CompareNumber(), 2);
+        spyOn(answerGenerator, "getNumber").and.returnValue("1234");
+        game = new Game(answerGenerator, new CompareNumber(), 2);
       });
 
       it("Player1 win -> \"Congratulations!\"", function() {
@@ -162,12 +160,12 @@ describe("GameSpec", function() {
     describe("GameSpec_Counter", function() {
       var game;
       beforeEach(function() {
-        answer_generator = {
+        answerGenerator = {
           getNumber: null
         };
-        spyOn(answer_generator, "getNumber").and.returnValue("1234");
+        spyOn(answerGenerator, "getNumber").and.returnValue("1234");
 
-        game = new Game(answer_generator, new CompareNumber(), 2);
+        game = new Game(answerGenerator, new CompareNumber(), 2);
       });
 
       it("Opportunity should decrease", function() {
@@ -182,11 +180,11 @@ describe("GameSpec", function() {
     describe("GameSpec_Over", function() {
       var game;
       beforeEach(function() {
-        answer_generator = {
+        answerGenerator = {
           getNumber: null
         };
-        spyOn(answer_generator, "getNumber").and.returnValue("1234");
-        game = new Game(answer_generator, new CompareNumber(), 2);
+        spyOn(answerGenerator, "getNumber").and.returnValue("1234");
+        game = new Game(answerGenerator, new CompareNumber(), 2);
       });
 
       it("Game should be over after 12 wrong trials", function() {
@@ -201,11 +199,11 @@ describe("GameSpec", function() {
       var game;
 
       beforeEach(function() {
-        answer_generator = {
+        answerGenerator = {
           getNumber: null
         };
-        spyOn(answer_generator, "getNumber").and.returnValue("1234");
-        game = new Game(answer_generator, new CompareNumber(), 2);
+        spyOn(answerGenerator, "getNumber").and.returnValue("1234");
+        game = new Game(answerGenerator, new CompareNumber(), 2);
       });
 
       it("input \"1111\" should be \"Cannot input duplicate numbers!\"", function() {
@@ -218,11 +216,11 @@ describe("GameSpec", function() {
       var game;
 
       beforeEach(function() {
-        var answer_generator = {
+        var answerGenerator = {
           getNumber: null
         };
-        spyOn(answer_generator, "getNumber").and.returnValue("1234");
-        game = new Game(answer_generator, new CompareNumber(), 2);
+        spyOn(answerGenerator, "getNumber").and.returnValue("1234");
+        game = new Game(answerGenerator, new CompareNumber(), 2);
       });
 
       it("should decrease the other counter by A", function() {
