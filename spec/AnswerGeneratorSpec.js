@@ -2,7 +2,7 @@ describe("AnswerGeneratorSpec", function() {
   var answer_generator;
 
   beforeEach(function() {
-    answer_generator = new AnswerGenerator(Math);
+    answer_generator = new AnswerGenerator();
   });
 
   it("should be output a string of a length-4 number that do not repeat", function() {

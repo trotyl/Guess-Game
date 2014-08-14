@@ -1,21 +1,15 @@
-function AnswerGenerator(math) {
-  this.math = math;
+function AnswerGenerator() {
 }
 
-AnswerGenerator._get_random = function (math, repeatSet) {
-  result = Math.floor(math.random() * 10);
-  return repeatSet[result]? AnswerGenerator._get_random(math, repeatSet): result;
+AnswerGenerator._get_random = function (numberSet) {
+  result = Math.floor(Math.random() * 10);
+  return _.contains(numberSet, result)? AnswerGenerator._get_random(numberSet): result;
 };
 
 AnswerGenerator.prototype.getNumber = function () {
   var numberSet = [];
-  var repeatSet = {};
-
-  for (var i = 0; i < 4; i++) {
-  	numberSet[i] = AnswerGenerator._get_random(this.math, repeatSet);
-  	repeatSet[numberSet[i]] = true;
-  };
-
-  return "".concat(numberSet[0]).concat(numberSet[1]).concat(numberSet[2]).concat(numberSet[3]);
+  _(4).times(function (n) {
+    numberSet[n] = AnswerGenerator._get_random(numberSet);
+  });
+  return "" + numberSet[0] + numberSet[1] + numberSet[2] + numberSet[3];
 };
-

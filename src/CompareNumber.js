@@ -3,24 +3,21 @@ function CompareNumber() {
 }
 
 CompareNumber.prototype.checkGuess = function(answer, guess, set) {
-  var count_A = count_total = 0;
+  var count_A = 0;
   var set = set || {};
-  var compare_A = {};
-  var compare_total = {};
   this.reduce = 0;
+  _(4).times(function (i) {
+    count_A += (answer[i] == guess[i])? 1: 0;
+  })
   for (var i = 3; i >= 0; i--) {
- 	  compare_A[answer[i].concat(i)] = true;
-  	compare_total[answer[i]] = true;
-  };
-
-  for (var i = 3; i >= 0; i--) {
-    count_A += compare_A[guess[i].concat(i)]? 1: 0;
-    count_total += compare_total[guess[i]]? 1: 0;
     if(set[guess[i].concat(i)]) {
       this.reduce += 1;
       set[guess[i].concat(i)] = false; 
     }
+    
   };
+  var count_total = _.intersection(answer, guess).length;
   count_B = count_total - count_A;
-  return "".concat(count_A).concat("A").concat(count_B).concat("B");
+  return count_A + "A" + count_B + "B";
 };
+
