@@ -232,7 +232,6 @@ describe("GameSpec", function() {
     });
 
 
-
   });
 
 });
