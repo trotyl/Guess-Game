@@ -33,3 +33,7 @@ Game.prototype.play = function (number) {
     this.console.log('Congratulations!\n');
   }
 };
+
+Game.prototype.is_duplated = function (number) {
+    return _.uniq(number).length != number.length;
+};
